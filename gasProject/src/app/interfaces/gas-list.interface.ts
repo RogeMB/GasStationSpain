@@ -1,5 +1,5 @@
 
-export interface ListaEESSPrecio {
+export interface GasDetails {
     'C.P.': string;
     'Dirección': string;
     'Horario': string;
@@ -36,7 +36,7 @@ export interface ListaEESSPrecio {
 
 export interface GasResponse {
     'Fecha': string;
-    'ListaEESSPrecio': ListaEESSPrecio[];
+    'ListaEESSPrecio': GasDetails[];
     'Nota': string;
     'ResultadoConsulta': string;
 }

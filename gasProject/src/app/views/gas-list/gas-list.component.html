@@ -1,7 +1,30 @@
+<app-navbar></app-navbar>
+<div class="m-2">
+  <div class="container-fluid">
+    <div class="row gap-2 justify-content-around">
+      <div *ngFor="let gas of gasList" class="card bg-light text-dark text-center col-3 border  border-primary border-3 rounded">
+        <div  style="width: 100%;">
+          <h5 class="card-header">{{gas['Rótulo']}}</h5>
+          <img src="..." class="card-img-top" alt="...">
+          <div class="card-body">
+            <h6 class="card-title">{{gas['Dirección']}}</h6>
+            <hr class="border border-primary border-2 opacity-75">
+            <ul class="list-group list-group-flush">
+              <li *ngIf="gas['Precio Gasoleo A']" class="list-group-item">Precio Gasóleo A: {{gas['Precio Gasoleo A']}}</li>
+              <li *ngIf="gas['Precio Gasoleo B']" class="list-group-item">Precio Gasóleo B: {{gas['Precio Gasoleo A']}}</li>
+              <li *ngIf="gas['Precio Gasoleo Premium']" class="list-group-item">Precio Gasóleo Premium: {{gas['Precio Gasoleo A']}}</li>
+              <li *ngIf="gas['Precio Gasolina 95 E10']" class="list-group-item">Precio Gasolina 95 E10: {{gas['Precio Gasolina 95 E10']}}</li>
+              <li *ngIf="gas['Precio Gasolina 95 E5']" class="list-group-item">Precio Gasolina 95 E5: {{gas['Precio Gasolina 95 E5']}}</li>
+              <li *ngIf="gas['Precio Gasolina 95 E5 Premium']" class="list-group-item">Precio Gasolina 95 E5 Premium: {{gas['Precio Gasolina 95 E5 Premium']}}</li>
+              <li *ngIf="gas['Precio Gasolina 98 E10']" class="list-group-item">Precio Gasolina 98 E10: {{gas['Precio Gasolina 98 E10']}}</li>
+              <li *ngIf="gas['Precio Gasolina 98 E5']" class="list-group-item">Precio Gasolina 98 E5: {{gas['Precio Gasolina 98 E5']}}</li>
+              <li *ngIf="gas['Precio Hidrogeno']" class="list-group-item">Precio Hidrógeno: {{gas['Precio Hidrogeno']}}</li>
+            </ul>
+            <a href="#" style="width:100%" class="btn btn-primary text-center">Detalles</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 
-<ul>
-  <li *ngFor="let gas of gasList">
-    <p>{{gas['Rótulo']}}</p>
-  </li>
-
-</ul>

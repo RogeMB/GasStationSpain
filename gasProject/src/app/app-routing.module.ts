@@ -5,8 +5,8 @@ import { HomeComponent } from './views/home/home.component';
 import { PageNotFoundComponent } from './views/page-not-found/page-not-found.component';
 
 const routes: Routes = [
-  { path: '/gasolineras', component: GasListComponent },
-  { path: '/home', component: HomeComponent },
+  { path: 'gasolineras', component: GasListComponent },
+  { path: 'home', component: HomeComponent },
 
   { path: '**', component: PageNotFoundComponent },
   { path: '', redirectTo: "/", pathMatch: "full" }
