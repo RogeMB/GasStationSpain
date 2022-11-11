@@ -40,7 +40,6 @@ import { FormsModule } from '@angular/forms';
 
 
 
-
 @NgModule({
   declarations: [],
   imports: [
@@ -80,7 +79,7 @@ import { FormsModule } from '@angular/forms';
     MatTableModule,
     MatSortModule,
     MatPaginatorModule,
-    FormsModule
+    FormsModule,
   ],
 
   exports: [
