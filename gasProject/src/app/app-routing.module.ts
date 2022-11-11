@@ -8,8 +8,9 @@ const routes: Routes = [
   { path: 'gasolineras', component: GasListComponent },
   { path: 'home', component: HomeComponent },
 
-  { path: '**', component: PageNotFoundComponent },
-  { path: '', redirectTo: "/", pathMatch: "full" }
+  { path: '', redirectTo: "/home", pathMatch: "full" },
+  { path: '**', component: PageNotFoundComponent }
+
 ];
 
 @NgModule({

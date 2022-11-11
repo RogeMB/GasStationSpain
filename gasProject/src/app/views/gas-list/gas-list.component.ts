@@ -1,6 +1,5 @@
-import { ThisReceiver } from '@angular/compiler';
 import { Component, OnInit } from '@angular/core';
-import { RouteConfigLoadEnd } from '@angular/router';
+import { FormControl } from '@angular/forms';
 import { GasDetails } from 'src/app/interfaces/gas-list.interface';
 
 import { GasService } from 'src/app/services/gas.service';
@@ -14,16 +13,140 @@ export class GasListComponent implements OnInit {
 
   urlImg!:string;
   gasList: GasDetails [] = [];
-  minimoPosible?: number = 0;
-  maximoPosible?: number = 3.5;
+  minimoPosible: number = 0;
+  maximoPosible: number = 3.5;
+  gasSelected?: string = '';
+  gasFiltrado: GasDetails[] = [];
+
+  combustibles:string[] = ['Gasóleo A', 'Gasóleo B', 'Gasóleo Premium', 'Gasolina 95 E10', 'Gasolina 95 E5', 'Gasolina 95 E5 Premium','Gasolina 98 E10','Gasolina 98 E5', 'Hidrógeno'];
+  precioGasoleoA: number = 0;
+  precioGasoleoB: number = 0;
+  precioGasoleoPrem: number = 0;
+  precioGasolina95E10: number = 0;
+  precioGasolina95E5: number = 0;
+  precioGasolina95E5Prem: number = 0;
+  precioGasolina98E10: number = 0;
+  precioGasolina98E5: number = 0;
+  precioHidrogeno: number = 0;
+
+  toppings = new FormControl('');
+
+  toppingList: string[] = ['Extra cheese', 'Mushroom', 'Onion', 'Pepperoni', 'Sausage', 'Tomato'];
 
   constructor(private gasService: GasService) { }
 
   ngOnInit(): void {
+    this.gasSelected = "Gasolina 95 E5";
     this.gasService.getGasolineras().subscribe(resp => {
       this.gasList = resp;
        console.log(this.gasList);
+       this.filtrado();
     })
+  }
+
+  getCombustible(gas: string) {
+    this.gasSelected = gas;
+    console.log(this.gasSelected);
+  }
+
+
+  filtrado() {
+    this.gasFiltrado = this.gasList.filter(item => this.condicionFiltro(item));
+  }
+
+
+  condicionFiltro(item: GasDetails): boolean {
+    let pasaFiltro = false;
+
+    switch (this.gasSelected) {
+      case 'Gasóleo A':
+        pasaFiltro =
+          Number(item['Precio Gasoleo A'].replace(',', '.')) >
+            this.minimoPosible &&
+          Number(item['Precio Gasoleo A'].replace(',', '.')) <
+            this.maximoPosible
+            ? true
+            : false;
+        break;
+      case 'Gasóleo B':
+        pasaFiltro =
+          Number(item['Precio Gasoleo B'].replace(',', '.')) >
+            this.minimoPosible &&
+          Number(item['Precio Gasoleo B'].replace(',', '.')) <
+            this.maximoPosible
+            ? true
+            : false;
+        break;
+      case 'Gasóleo Premium':
+        pasaFiltro =
+          Number(item['Precio Gasoleo Premium'].replace(',', '.')) >
+            this.minimoPosible &&
+          Number(item['Precio Gasoleo Premium'].replace(',', '.')) <
+            this.maximoPosible
+            ? true
+            : false;
+        break;
+      case 'Gasolina 95 E10':
+        pasaFiltro =
+          Number(item['Precio Gasolina 95 E10'].replace(',', '.')) >
+            this.minimoPosible &&
+          Number(item['Precio Gasolina 95 E10'].replace(',', '.')) <
+            this.maximoPosible
+            ? true
+            : false;
+        break;
+      case 'Gasolina 95 E5':
+        pasaFiltro =
+          Number(item['Precio Gasolina 95 E5'].replace(',', '.')) >
+            this.minimoPosible &&
+          Number(item['Precio Gasolina 95 E5'].replace(',', '.')) <
+            this.maximoPosible
+            ? true
+            : false;
+        break;
+      case 'Gasolina 95 E5 Premium':
+        pasaFiltro =
+          Number(item['Precio Gasolina 95 E5 Premium'].replace(',', '.')) >
+            this.minimoPosible &&
+          Number(item['Precio Gasolina 95 E5 Premium'].replace(',', '.')) <
+            this.maximoPosible
+            ? true
+            : false;
+        break;
+
+      case 'Gasolina 98 E10':
+        pasaFiltro =
+          Number(item['Precio Gasolina 98 E10'].replace(',', '.')) >
+            this.minimoPosible &&
+          Number(item['Precio Gasolina 98 E10'].replace(',', '.')) <
+            this.maximoPosible
+            ? true
+            : false;
+        break;
+      case 'Gasolina 98 E5':
+        pasaFiltro =
+          Number(item['Precio Gasolina 98 E5'].replace(',', '.')) >
+            this.minimoPosible &&
+          Number(item['Precio Gasolina 98 E5'].replace(',', '.')) <
+            this.maximoPosible
+            ? true
+            : false;
+        break;
+      case 'Hidrógeno':
+        pasaFiltro =
+          Number(item['Precio Hidrogeno'].replace(',', '.')) >
+            this.minimoPosible &&
+          Number(item['Precio Hidrogeno'].replace(',', '.')) <
+            this.maximoPosible
+            ? true
+            : false;
+        break;
+
+      default:
+        'Gasolina 95 E5';
+        break;
+    }
+    return pasaFiltro;
   }
 
   getImage(rotulo :string) {
@@ -44,7 +167,7 @@ export class GasListComponent implements OnInit {
     }else if (rotulo.includes('SHELL')){
       this.urlImg = '../../assets/img/shell-logo.png';
     }
-    
+
     else {
       this.urlImg = '../../assets/img/gasLogo.png'
     }
@@ -67,6 +190,7 @@ export class GasListComponent implements OnInit {
     return value;
   }
 
-}
 
+
+}
 

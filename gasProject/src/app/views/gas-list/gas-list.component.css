@@ -15,13 +15,8 @@
 .mat-slider-vertical {
     height: 300px;
 }
-  
-.example-label-container .example-label-vertical {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-between;
-    max-width: 68px;
-    height: 48px;
-  }
-  
+
+.card:hover img {
+  transform: scale(1.05);
+  transition: all 300ms ease-in-out;
+}

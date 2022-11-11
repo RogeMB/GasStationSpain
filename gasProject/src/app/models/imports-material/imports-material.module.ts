@@ -36,7 +36,7 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {MatTableModule} from '@angular/material/table';
 import {MatSortModule} from '@angular/material/sort';
 import {MatPaginatorModule} from '@angular/material/paginator';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 
@@ -80,6 +80,7 @@ import { FormsModule } from '@angular/forms';
     MatSortModule,
     MatPaginatorModule,
     FormsModule,
+    ReactiveFormsModule
   ],
 
   exports: [
@@ -119,7 +120,8 @@ import { FormsModule } from '@angular/forms';
     MatTableModule,
     MatSortModule,
     MatPaginatorModule,
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule
   ]
 })
 export class ImportsMaterialModule { }

@@ -1,7 +1,7 @@
 <div class="container-fluid">
   <app-navbar></app-navbar>
-  
-  
+
+
   <div class="offcanvas offcanvas-start text-dark" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
     <div class="offcanvas-header">
       <img src="../../../assets/img/favicon_io/android-chrome-512x512.png" alt="Logo" width="60" height="auto" class="d-inline-block ">
@@ -12,10 +12,30 @@
       <div>
         Aquí puedes filtrar por precio del combustible que desees. Además, también podrás hacerlo por provincia y municipio.
       </div>
-      
-      
-      <div class="example-label-vertical">
-        <label id="example-name-label" class="example-label-vertical">Max Valor</label>
+      <div class="w-100 mb-2 justify-content text-center rounded" >
+        <select class="form-select" aria-label="Combustible">
+          <option  *ngFor="let item of combustibles" value="Combustible"  (onSelectionChange)="getCombustible(item)">{{item}}</option>
+        </select>
+      </div>
+
+      <div class="w-100 mb-2 d-flex m-auto text-center rounded">
+        <mat-form-field appearance="fill">
+          <mat-label>Toppings</mat-label>
+          <mat-select [formControl]="toppings" multiple>
+            <mat-select-trigger>
+              {{toppings.value?.[0] || ''}}
+              <span *ngIf="(toppings.value?.length || 0) > 1" class="example-additional-selection">
+                (+{{(toppings.value?.length || 0) - 1}} {{toppings.value?.length === 2 ? 'other' : 'others'}})
+              </span>
+            </mat-select-trigger>
+            <mat-option *ngFor="let topping of toppingList" [value]="topping">{{topping}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <div class="example-label-vertical d-flex m-auto">
+        <label id="example-name-label" class="example-label-vertical fw-bold">Max</label>&nbsp;
+        <label id="example-name-label" class="example-label-vertical fw-bold">{{maximoPosible}}€</label>
         <mat-slider
           class="example-margin"
           [max]="3.5"
@@ -27,7 +47,8 @@
           aria-labelledby="example-name-label">
         </mat-slider>
 
-        <label id="example-name-label" class="example-label-vertical">Min Valor</label>
+        <label id="example-name-label" class="example-label-vertical fw-bold">Min</label>&nbsp;
+        <label id="example-name-label" class="example-label-vertical fw-bold">{{minimoPosible}}€</label>
         <mat-slider
           class="example-margin"
           [max]="maximoPosible"
@@ -39,17 +60,7 @@
           aria-labelledby="example-name-label">
         </mat-slider>
       </div>
-      
-      <div class="dropdown mt-3">
-        <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown">
-          Dropdown button
-        </button>
-        <ul class="dropdown-menu">
-          <li><a class="dropdown-item" href="#">Action</a></li>
-          <li><a class="dropdown-item" href="#">Another action</a></li>
-          <li><a class="dropdown-item" href="#">Something else here</a></li>
-        </ul>
-      </div>
+      <button class="btn btn-success d-grid d-md-block rounded-2 m-auto mt-4 fs-2 fw-bold text-light w-100" type="button" (click)="filtrado()">F i l t r a r</button>
     </div>
   </div>
 
@@ -59,17 +70,17 @@
     </button>
     <div class="container-fluid">
       <div class="row gap-2 justify-content-around">
-        <div *ngFor="let gas of gasList" style="width: 22rem;" class="card bg-light text-dark text-center col-3 border  border-primary border-3 rounded">
+        <div *ngFor="let gas of gasFiltrado" style="width: 22rem;" class="card bg-light text-dark text-center col-3 border  border-primary border-3 rounded">
           <div  style="width: 100%;">
             <h5 class="card-header">{{gas['Rótulo']}}</h5>
-            <img style="height: 20vh;" src="{{getImage(gas['Rótulo'])}}" class="card-img-top mt-1 rounded" alt="Logo">
+            <img style="height: 22vh;" src="{{getImage(gas['Rótulo'])}}" class="card-img-top mt-1 rounded" alt="Logo">
             <div class="card-body rounded mt-2 "  style="background-color: rgba(128, 128, 128, 0.479);">
               <h6 class="card-title">{{gas['Dirección']}}</h6>
               <hr class="border border-primary border-2 opacity-75">
               <ul class="list-group list-group-flush">
                 <li *ngIf="gas['Precio Gasoleo A']" class="list-group-item">Precio Gasóleo A: <span class="fw-bold">{{gas['Precio Gasoleo A']}}€</span></li>
-                <li *ngIf="gas['Precio Gasoleo B']" class="list-group-item">Precio Gasóleo B: <span class="fw-bold">{{gas['Precio Gasoleo A']}}€</span></li>
-                <li *ngIf="gas['Precio Gasoleo Premium']" class="list-group-item">Precio Gasóleo Premium: <span class="fw-bold">{{gas['Precio Gasoleo A']}}€</span></li>
+                <li *ngIf="gas['Precio Gasoleo B']" class="list-group-item">Precio Gasóleo B: <span class="fw-bold">{{gas['Precio Gasoleo B']}}€</span></li>
+                <li *ngIf="gas['Precio Gasoleo Premium']" class="list-group-item">Precio Gasóleo Premium: <span class="fw-bold">{{gas['Precio Gasoleo Premium']}}€</span></li>
                 <li *ngIf="gas['Precio Gasolina 95 E10']" class="list-group-item">Precio Gasolina 95 E10: <span class="fw-bold">{{gas['Precio Gasolina 95 E10']}}€</span></li>
                 <li *ngIf="gas['Precio Gasolina 95 E5']" class="list-group-item">Precio Gasolina 95 E5: <span class="fw-bold">{{gas['Precio Gasolina 95 E5']}}€</span></li>
                 <li *ngIf="gas['Precio Gasolina 95 E5 Premium']" class="list-group-item">Precio Gasolina 95 E5 Premium: <span class="fw-bold">{{gas['Precio Gasolina 95 E5 Premium']}}€</span></li>
@@ -79,7 +90,7 @@
               </ul>
                 <a href="#" style="width:100%;" class="btn btn-primary text-center">Detalles</a>
             </div>
-          </div>       
+          </div>
         </div>
       </div>
     </div>
