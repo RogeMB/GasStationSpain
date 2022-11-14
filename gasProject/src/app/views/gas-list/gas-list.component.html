@@ -14,23 +14,8 @@
       </div>
       <div class="w-100 mb-2 justify-content text-center rounded" >
         <select class="form-select" aria-label="Combustible">
-          <option  *ngFor="let item of combustibles" value="Combustible"  (onSelectionChange)="getCombustible(item)">{{item}}</option>
+          <option *ngFor="let item of combustibles" value="Combustible" (onSelectionChange)="getCombustible(item)">{{item}}</option>
         </select>
-      </div>
-
-      <div class="w-100 mb-2 d-flex m-auto text-center rounded">
-        <mat-form-field appearance="fill">
-          <mat-label>Toppings</mat-label>
-          <mat-select [formControl]="toppings" multiple>
-            <mat-select-trigger>
-              {{toppings.value?.[0] || ''}}
-              <span *ngIf="(toppings.value?.length || 0) > 1" class="example-additional-selection">
-                (+{{(toppings.value?.length || 0) - 1}} {{toppings.value?.length === 2 ? 'other' : 'others'}})
-              </span>
-            </mat-select-trigger>
-            <mat-option *ngFor="let topping of toppingList" [value]="topping">{{topping}}</mat-option>
-          </mat-select>
-        </mat-form-field>
       </div>
 
       <div class="example-label-vertical d-flex m-auto">
@@ -65,10 +50,27 @@
   </div>
 
   <div class="m-2">
-    <button class="btn btn-primary mb-2" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample" aria-controls="offcanvasExample">
-      Abrir Filtrado
-    </button>
+    
+    
+    
     <div class="container-fluid">
+      
+      <button class="btn btn-primary mb-2" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample" aria-controls="offcanvasExample">
+        Abrir Filtrado de precios
+      </button>
+      <mat-form-field appearance="fill" class="bg-light w-35 mb-2 ms-3 text-dark rounded d-inline-flex">
+        <mat-label>Provincias</mat-label>
+        <mat-select [formControl]="toppings" multiple>
+          <mat-select-trigger class="text-dark">
+            {{toppings.value?.[0] || ''}}
+            <span *ngIf="(toppings.value?.length || 0) > 1" class="example-additional-selection text-dark">
+              (+{{(toppings.value?.length || 0) - 1}} {{toppings.value?.length === 2 ? 'other' : 'others'}})
+            </span>
+          </mat-select-trigger>
+          <mat-option *ngFor="let item of provinciasList" [value]="item">{{item.Provincia}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+   
       <div class="row gap-2 justify-content-around">
         <div *ngFor="let gas of gasFiltrado" style="width: 22rem;" class="card bg-light text-dark text-center col-3 border  border-primary border-3 rounded">
           <div  style="width: 100%;">

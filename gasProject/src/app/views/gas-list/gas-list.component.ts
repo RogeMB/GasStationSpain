@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { GasDetails } from 'src/app/interfaces/gas-list.interface';
+import { Provincia } from 'src/app/interfaces/provincias.interface';
 
 import { GasService } from 'src/app/services/gas.service';
 
@@ -19,19 +20,10 @@ export class GasListComponent implements OnInit {
   gasFiltrado: GasDetails[] = [];
 
   combustibles:string[] = ['Gasóleo A', 'Gasóleo B', 'Gasóleo Premium', 'Gasolina 95 E10', 'Gasolina 95 E5', 'Gasolina 95 E5 Premium','Gasolina 98 E10','Gasolina 98 E5', 'Hidrógeno'];
-  precioGasoleoA: number = 0;
-  precioGasoleoB: number = 0;
-  precioGasoleoPrem: number = 0;
-  precioGasolina95E10: number = 0;
-  precioGasolina95E5: number = 0;
-  precioGasolina95E5Prem: number = 0;
-  precioGasolina98E10: number = 0;
-  precioGasolina98E5: number = 0;
-  precioHidrogeno: number = 0;
 
   toppings = new FormControl('');
 
-  toppingList: string[] = ['Extra cheese', 'Mushroom', 'Onion', 'Pepperoni', 'Sausage', 'Tomato'];
+  provinciasList: Provincia [] = [];
 
   constructor(private gasService: GasService) { }
 
@@ -39,9 +31,15 @@ export class GasListComponent implements OnInit {
     this.gasSelected = "Gasolina 95 E5";
     this.gasService.getGasolineras().subscribe(resp => {
       this.gasList = resp;
-       console.log(this.gasList);
-       this.filtrado();
+      console.log(this.gasList);
+      this.filtrado();
     })
+    
+    this.gasService.getProvincias().subscribe(prov => {
+      this.provinciasList = prov;
+      console.log(this.provinciasList);
+    })
+    
   }
 
   getCombustible(gas: string) {
