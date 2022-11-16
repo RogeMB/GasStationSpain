@@ -1,9 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { catchError, map, Observable, of } from 'rxjs';
+import { catchError, map, Observable, of, tap } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { GasResponse, GasDetails } from '../interfaces/gas-list.interface';
-import { Provincia, ProvinciaResponse } from '../interfaces/provincias.interface';
+import { Provincia } from '../interfaces/provincias.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -23,12 +23,7 @@ export class GasService {
   }
 
   getProvincias():Observable<Provincia[]> {
-    console.log('ver provincias')
-
-    return this.http.get<ProvinciaResponse>(`${environment.api_base_url}/ServiciosRESTCarburantes/PreciosCarburantes/Listados/Provincias/`).pipe(
-      map((resp) => resp.ProvinciaList),
-      catchError(error => of([]))
-    )
+    return this.http.get<Provincia[]>(`${environment.api_base_url}/ServiciosRESTCarburantes/PreciosCarburantes/Listados/Provincias/`);
   }
 
 }

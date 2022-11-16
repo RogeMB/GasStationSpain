@@ -6,8 +6,3 @@ export interface Provincia {
     Provincia: string;
     CCAA: string;
 }
-
-export interface ProvinciaResponse {
-    ProvinciaList: Provincia[];
-}
-

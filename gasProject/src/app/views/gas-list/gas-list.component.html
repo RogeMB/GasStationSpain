@@ -50,11 +50,11 @@
   </div>
 
   <div class="m-2">
-    
-    
-    
+
+
+
     <div class="container-fluid">
-      
+
       <button class="btn btn-primary mb-2" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample" aria-controls="offcanvasExample">
         Abrir Filtrado de precios
       </button>
@@ -67,10 +67,10 @@
               (+{{(toppings.value?.length || 0) - 1}} {{toppings.value?.length === 2 ? 'other' : 'others'}})
             </span>
           </mat-select-trigger>
-          <mat-option *ngFor="let item of provinciasList" [value]="item">{{item.Provincia}}</mat-option>
+          <mat-option (onSelectionChange)="postProvincia(item.Provincia)" *ngFor="let item of provinciasList" [value]="item.Provincia">{{item.Provincia}}</mat-option>
         </mat-select>
       </mat-form-field>
-   
+
       <div class="row gap-2 justify-content-around">
         <div *ngFor="let gas of gasFiltrado" style="width: 22rem;" class="card bg-light text-dark text-center col-3 border  border-primary border-3 rounded">
           <div  style="width: 100%;">
@@ -106,7 +106,7 @@
     </div>
   </div>
 
-  <mat-progress-spinner
+  <mat-progress-spinner *ngIf="!boolGasFil"
     class="m-auto"
     color="warn"
     mode="indeterminate">

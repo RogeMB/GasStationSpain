@@ -1,3 +1,4 @@
+import { ThisReceiver } from '@angular/compiler';
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { GasDetails } from 'src/app/interfaces/gas-list.interface';
@@ -17,7 +18,9 @@ export class GasListComponent implements OnInit {
   minimoPosible: number = 0;
   maximoPosible: number = 3.5;
   gasSelected?: string = '';
+  provSelected: string  [] = [];
   gasFiltrado: GasDetails[] = [];
+  boolGasFil: boolean = false;
 
   combustibles:string[] = ['Gasóleo A', 'Gasóleo B', 'Gasóleo Premium', 'Gasolina 95 E10', 'Gasolina 95 E5', 'Gasolina 95 E5 Premium','Gasolina 98 E10','Gasolina 98 E5', 'Hidrógeno'];
 
@@ -32,14 +35,15 @@ export class GasListComponent implements OnInit {
     this.gasService.getGasolineras().subscribe(resp => {
       this.gasList = resp;
       console.log(this.gasList);
+      this.boolGasFil=true;
       this.filtrado();
     })
-    
+
     this.gasService.getProvincias().subscribe(prov => {
       this.provinciasList = prov;
       console.log(this.provinciasList);
     })
-    
+
   }
 
   getCombustible(gas: string) {
@@ -48,8 +52,21 @@ export class GasListComponent implements OnInit {
   }
 
 
+  postProvincia(provincia: string  ) {
+
+    if(this.provSelected.includes(provincia)) {
+      this.provSelected.splice(this.provSelected.indexOf(provincia), 1)
+    }else {
+      this.provSelected.push(provincia);
+
+    }
+    console.log(this.provSelected);
+
+  }
+
   filtrado() {
     this.gasFiltrado = this.gasList.filter(item => this.condicionFiltro(item));
+
   }
 
 
