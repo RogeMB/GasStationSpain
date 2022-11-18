@@ -14,6 +14,7 @@
       </div>
       <div class="w-100 mb-2 justify-content text-center rounded" >
         <select class="form-select" aria-label="Combustible">
+          <option selected>Selecciona un combustible</option>
           <option *ngFor="let item of combustibles" value="Combustible" (onSelectionChange)="getCombustible(item)">{{item}}</option>
         </select>
       </div>
@@ -67,10 +68,12 @@
               (+{{(toppings.value?.length || 0) - 1}} {{toppings.value?.length === 2 ? 'other' : 'others'}})
             </span>
           </mat-select-trigger>
-          <mat-option (onSelectionChange)="postProvincia(item.Provincia)" *ngFor="let item of provinciasList" [value]="item.Provincia">{{item.Provincia}}</mat-option>
+          <mat-option (onSelectionChange)="postProvincia(item.Provincia); filtrado()" *ngFor="let item of provinciasList"
+          [value]="item.Provincia">{{item.Provincia}}</mat-option>
         </mat-select>
       </mat-form-field>
 
+      <div class="m-auto w-100 text-center fw-bold d-flex fs-3" *ngIf="provSelected.length == 0">Bienvenido, selecciona una provincia y/o, en el menú desplegable, un combustible.</div>
       <div class="row gap-2 justify-content-around">
         <div *ngFor="let gas of gasFiltrado" style="width: 22rem;" class="card bg-light text-dark text-center col-3 border  border-primary border-3 rounded">
           <div  style="width: 100%;">

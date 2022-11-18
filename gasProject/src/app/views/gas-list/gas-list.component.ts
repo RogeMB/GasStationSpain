@@ -30,7 +30,7 @@ export class GasListComponent implements OnInit {
 
   toppings = new FormControl('');
 
- 
+
 
   constructor(private gasService: GasService) { }
 
@@ -64,12 +64,12 @@ export class GasListComponent implements OnInit {
       this.provSelected.push(provincia);
     }
     console.log(this.provSelected);
-    return this.provSelected;
+    return this.provSelected
   }
+
 
   filtrado() {
     this.gasFiltrado = this.gasList.filter(item => this.condicionFiltro(item));
-
   }
 
 
@@ -87,7 +87,7 @@ export class GasListComponent implements OnInit {
               this.provSelected.includes(item['Provincia'])*/
               ? true
               : false;
-  
+
         break;
       case 'Gasóleo B':
         pasaFiltro =
@@ -128,8 +128,8 @@ export class GasListComponent implements OnInit {
             this.minimoPosible &&
           Number(item['Precio Gasolina 95 E5'].replace(',', '.')) <
             this.maximoPosible
-          /* &&
-            this.provSelected.includes(item['IDProvincia'])*/
+           &&
+            this.provSelected.includes(item['Provincia'])
             ? true
             : false;
         break;
