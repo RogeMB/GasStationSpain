@@ -21,7 +21,8 @@
   transition: all 300ms ease-in-out;
 }
 
-.example-additional-selection {
+.additional-selection {
     opacity: 0.75;
     font-size: 0.75em;
+    color: red !important;
 }

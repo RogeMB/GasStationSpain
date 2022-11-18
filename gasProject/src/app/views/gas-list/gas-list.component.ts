@@ -1,4 +1,3 @@
-import { ThisReceiver } from '@angular/compiler';
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { GasDetails } from 'src/app/interfaces/gas-list.interface';
@@ -22,11 +21,16 @@ export class GasListComponent implements OnInit {
   gasFiltrado: GasDetails[] = [];
   boolGasFil: boolean = false;
 
+  provinciasList: Provincia [] = [];
+
+ /* gasStation: GasDetails = {} as GasDetails;
+  gasDetailsVariable: keyof typeof this.gasStation = 'Precio Gasolina 95 E5';*/
+
   combustibles:string[] = ['Gasóleo A', 'Gasóleo B', 'Gasóleo Premium', 'Gasolina 95 E10', 'Gasolina 95 E5', 'Gasolina 95 E5 Premium','Gasolina 98 E10','Gasolina 98 E5', 'Hidrógeno'];
 
   toppings = new FormControl('');
 
-  provinciasList: Provincia [] = [];
+ 
 
   constructor(private gasService: GasService) { }
 
@@ -58,10 +62,9 @@ export class GasListComponent implements OnInit {
       this.provSelected.splice(this.provSelected.indexOf(provincia), 1)
     }else {
       this.provSelected.push(provincia);
-
     }
     console.log(this.provSelected);
-
+    return this.provSelected;
   }
 
   filtrado() {
@@ -71,17 +74,20 @@ export class GasListComponent implements OnInit {
 
 
   condicionFiltro(item: GasDetails): boolean {
+   this.postProvincia;
     let pasaFiltro = false;
-
     switch (this.gasSelected) {
       case 'Gasóleo A':
-        pasaFiltro =
-          Number(item['Precio Gasoleo A'].replace(',', '.')) >
-            this.minimoPosible &&
-          Number(item['Precio Gasoleo A'].replace(',', '.')) <
-            this.maximoPosible
-            ? true
-            : false;
+          pasaFiltro =
+            Number(item['Precio Gasoleo A'].replace(',', '.')) >
+              this.minimoPosible &&
+            Number(item['Precio Gasoleo A'].replace(',', '.')) <
+              this.maximoPosible
+             /* &&
+              this.provSelected.includes(item['Provincia'])*/
+              ? true
+              : false;
+  
         break;
       case 'Gasóleo B':
         pasaFiltro =
@@ -89,6 +95,8 @@ export class GasListComponent implements OnInit {
             this.minimoPosible &&
           Number(item['Precio Gasoleo B'].replace(',', '.')) <
             this.maximoPosible
+            /*&&
+            this.provSelected.includes(item['IDProvincia'])*/
             ? true
             : false;
         break;
@@ -98,6 +106,8 @@ export class GasListComponent implements OnInit {
             this.minimoPosible &&
           Number(item['Precio Gasoleo Premium'].replace(',', '.')) <
             this.maximoPosible
+          /*  &&
+            this.provSelected.includes(item['IDProvincia'])*/
             ? true
             : false;
         break;
@@ -107,6 +117,8 @@ export class GasListComponent implements OnInit {
             this.minimoPosible &&
           Number(item['Precio Gasolina 95 E10'].replace(',', '.')) <
             this.maximoPosible
+           /* &&
+            this.provSelected.includes(item['IDProvincia'])*/
             ? true
             : false;
         break;
@@ -116,6 +128,8 @@ export class GasListComponent implements OnInit {
             this.minimoPosible &&
           Number(item['Precio Gasolina 95 E5'].replace(',', '.')) <
             this.maximoPosible
+          /* &&
+            this.provSelected.includes(item['IDProvincia'])*/
             ? true
             : false;
         break;
@@ -125,6 +139,8 @@ export class GasListComponent implements OnInit {
             this.minimoPosible &&
           Number(item['Precio Gasolina 95 E5 Premium'].replace(',', '.')) <
             this.maximoPosible
+           /*&&
+            this.provSelected.includes(item['IDProvincia'])*/
             ? true
             : false;
         break;
@@ -135,6 +151,8 @@ export class GasListComponent implements OnInit {
             this.minimoPosible &&
           Number(item['Precio Gasolina 98 E10'].replace(',', '.')) <
             this.maximoPosible
+           /* &&
+            this.provSelected.includes(item['IDProvincia'])*/
             ? true
             : false;
         break;
@@ -144,6 +162,8 @@ export class GasListComponent implements OnInit {
             this.minimoPosible &&
           Number(item['Precio Gasolina 98 E5'].replace(',', '.')) <
             this.maximoPosible
+           /* &&
+            this.provSelected.includes(item['IDProvincia'])*/
             ? true
             : false;
         break;
@@ -153,6 +173,8 @@ export class GasListComponent implements OnInit {
             this.minimoPosible &&
           Number(item['Precio Hidrogeno'].replace(',', '.')) <
             this.maximoPosible
+            /*&&
+            this.provSelected.includes(item['IDProvincia'])*/
             ? true
             : false;
         break;
