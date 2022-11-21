@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { catchError, map, Observable, of, tap } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { GasResponse, GasDetails } from '../interfaces/gas-list.interface';
+import { MunicipioResponse } from '../interfaces/municipios.interface';
 import { Provincia } from '../interfaces/provincias.interface';
 
 @Injectable({
@@ -24,6 +25,10 @@ export class GasService {
 
   getProvincias():Observable<Provincia[]> {
     return this.http.get<Provincia[]>(`${environment.api_base_url}/ServiciosRESTCarburantes/PreciosCarburantes/Listados/Provincias/`);
+  }
+
+  getMunicipiosProvincia(idProvincia: string):Observable<MunicipioResponse[]> {
+    return this.http.get<MunicipioResponse[]>(`https://sedeaplicaciones.minetur.gob.es/ServiciosRESTCarburantes/PreciosCarburantes/Listados/MunicipiosPorProvincia/${idProvincia}`)
   }
 
 }

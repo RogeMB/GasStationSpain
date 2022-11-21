@@ -15,7 +15,7 @@
       <div class="w-100 mb-2 justify-content text-center rounded" >
         <select class="form-select" aria-label="Combustible">
           <option selected>Selecciona un combustible</option>
-          <option *ngFor="let item of combustibles" value="Combustible" (onSelectionChange)="getCombustible(item)">{{item}}</option>
+          <option *ngFor="let item of combustibles" value="Combustible" (onSelectionChange)="getCombustible(item)">{{item}}</option> <!--onSelectionChange for option. selectionChange for Select-->
         </select>
       </div>
 
@@ -61,16 +61,32 @@
       </button>
       <mat-form-field appearance="fill" class="bg-light w-35 mb-2 ms-3 text-dark rounded d-inline-flex">
         <mat-label>Provincias</mat-label>
-        <mat-select [formControl]="toppings" multiple>
+        <mat-select  [(ngModel)]="provSelected" placeholder="Selecciona una provincia" (selectionChange)="postProvincia()"  [formControl]="toppings" multiple>
           <mat-select-trigger class="text-dark">
             {{toppings.value?.[0] || ''}}
             <span *ngIf="(toppings.value?.length || 0) > 1" class="additional-selection text-dark">
               (+{{(toppings.value?.length || 0) - 1}} {{toppings.value?.length === 2 ? 'other' : 'others'}})
             </span>
           </mat-select-trigger>
-          <mat-option (onSelectionChange)="postProvincia(item.Provincia); filtrado()" *ngFor="let item of provinciasList"
+          <mat-option (click)="filtrado()" *ngFor="let item of provinciasList"
           [value]="item.Provincia">{{item.Provincia}}</mat-option>
         </mat-select>
+      </mat-form-field>
+
+      <mat-form-field *ngIf="municipiosList.length != 0 " class="bg-light w-35 mb-2 ms-3 text-dark rounded d-inline-flex" appearance="fill">
+        <mat-label>Municipio</mat-label>
+        <input type="text"
+               placeholder="Elige uno"
+               aria-label="Number"
+               matInput
+               [(ngModel)]="municipioSelected"
+               [formControl]="myControl"
+               [matAutocomplete]="auto">
+        <mat-autocomplete #auto="matAutocomplete" (optionSelected)="filtrado()">
+          <mat-option  *ngFor="let item of filteredOptions | async" [value]="item.Municipio">
+            {{item.Municipio}}
+          </mat-option>
+        </mat-autocomplete>
       </mat-form-field>
 
       <div class="m-auto w-100 text-center fw-bold d-flex fs-3" *ngIf="provSelected.length == 0">Bienvenido, selecciona una provincia y/o, en el menú desplegable, un combustible.</div>
