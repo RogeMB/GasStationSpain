@@ -32,6 +32,7 @@ export interface GasDetails {
     'IDMunicipio': string;
     'IDProvincia': string;
     'IDCCAA': string;
+    Position: google.maps.LatLngLiteral;
 }
 
 export interface GasResponse {

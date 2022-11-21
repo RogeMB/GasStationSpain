@@ -89,8 +89,19 @@
         </mat-autocomplete>
       </mat-form-field>
 
-      <div class="m-auto w-100 text-center fw-bold d-flex fs-3" *ngIf="provSelected.length == 0">Bienvenido, selecciona una provincia y/o, en el menú desplegable, un combustible.</div>
+      <div class="m-auto w-100 text-center fw-bold d-flex fs-3" *ngIf="provSelected.length == 0">Bienvenido, selecciona una provincia y/o, en el menú desplegable, un combustible con el precio que gustes.</div>
       <div class="row gap-2 justify-content-around">
+
+        <div>
+          <google-map [center]="gasPosition" [zoom]="zoomInput">
+              <map-marker-clusterer imagePath="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m1.png?_ga=2.25440445.-1273609795.1666972981">
+                  <map-marker #marker="mapMarker" *ngFor="let gas of gasolineras" [position]="gas.Position" (mapClick)="openInfoWindow(marker, gas)"></map-marker>
+              </map-marker-clusterer>
+
+
+          </google-map>
+      </div>
+
         <div *ngFor="let gas of gasFiltrado" style="width: 22rem;" class="card bg-light text-dark text-center col-3 border  border-primary border-3 rounded">
           <div  style="width: 100%;">
             <h5 class="card-header">{{gas['Rótulo']}}</h5>

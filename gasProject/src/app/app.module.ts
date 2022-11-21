@@ -8,6 +8,7 @@ import { HomeComponent } from './views/home/home.component';
 import { PageNotFoundComponent } from './views/page-not-found/page-not-found.component';
 import { ImportsMaterialModule } from './models/imports-material/imports-material.module';
 import { NavbarComponent } from './components/navbar/navbar.component';
+import { GoogleMapsModule } from '@angular/google-maps';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { NavbarComponent } from './components/navbar/navbar.component';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    ImportsMaterialModule
+    ImportsMaterialModule,
+    GoogleMapsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

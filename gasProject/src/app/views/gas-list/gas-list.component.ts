@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormControl } from '@angular/forms';
+import { GoogleMap, MapInfoWindow, MapMarker } from '@angular/google-maps';
 import { map, Observable, startWith } from 'rxjs';
 import { GasDetails } from 'src/app/interfaces/gas-list.interface';
 import { MunicipioResponse } from 'src/app/interfaces/municipios.interface';
@@ -13,6 +14,23 @@ import { GasService } from 'src/app/services/gas.service';
   styleUrls: ['./gas-list.component.css'],
 })
 export class GasListComponent implements OnInit {
+  @ViewChild(MapInfoWindow) infoWindow: MapInfoWindow = {} as MapInfoWindow;
+  zoomInput: number = 0;
+  gasolineras: GasDetails[] = [];
+  gasStation: GasDetails = {} as GasDetails;
+  pos: google.maps.LatLngLiteral= {} as google.maps.LatLngLiteral;
+
+  userPosition: google.maps.LatLngLiteral = {} as google.maps.LatLngLiteral;
+  gasPosition: google.maps.LatLngLiteral = {} as google.maps.LatLngLiteral;
+  mapZoom = 4;
+  gasPositions: google.maps.LatLngLiteral[] = [];
+
+
+  userLat = this.gasPosition.lat;
+  userLng = this.gasPosition.lng;
+
+
+
   urlImg!: string;
   gasList: GasDetails[] = [];
   minimoPosible: number = 0;
@@ -49,6 +67,7 @@ export class GasListComponent implements OnInit {
   constructor(private gasService: GasService) {}
 
   ngOnInit(): void {
+    this.getLocation();
     this.gasSelected = 'Gasolina 95 E5';
     this.gasService.getGasolineras().subscribe((resp) => {
       this.gasList = resp;
@@ -62,6 +81,27 @@ export class GasListComponent implements OnInit {
       console.log(this.provinciasList);
     });
   }
+
+  getLocation(): void{
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition((position)=>{
+        this.userLat = position.coords.latitude;
+        this.userLng = position.coords.longitude;
+        this.userPosition = {lat: this.userLat, lng: this.userLng};
+        console.log(this.userPosition);
+
+      });
+    }else {
+      console.log("No support for geolocation")
+    }
+
+
+  }
+
+  openInfoWindow(marker: MapMarker, gas: GasDetails) {
+      this.infoWindow.open(marker);
+  }
+
 
   getCombustible(gas: string) {
     this.gasSelected = gas;
